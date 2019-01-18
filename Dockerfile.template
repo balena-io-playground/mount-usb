@@ -2,9 +2,12 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-ubuntu:xenial
 
 ENV INITSYSTEM on
+WORKDIR /usr/src/app
 
-ENV DBUS_SYSTEM_BUS_ADDRESS "unix:path=/host/run/dbus/system_bus_socket"
+#ENV DBUS_SYSTEM_BUS_ADDRESS "unix:path=/host/run/dbus/system_bus_socket"
 COPY mnt-storage.mount /etc/systemd/system/
-RUN systemctl enable mnt-storage.mount
+#RUN systemctl enable mnt-storage.mount
 
-ENTRYPOINT ["/bin/sleep", "86400"]
+COPY start.sh .
+
+CMD ./start.sh
